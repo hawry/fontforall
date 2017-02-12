@@ -42,6 +42,7 @@ func exePath() (string, error) {
 }
 
 func installService(name, desc string) error {
+	//Try to create font dir directly under the primary harddrive
 	exepath, err := exePath()
 	if err != nil {
 		return err

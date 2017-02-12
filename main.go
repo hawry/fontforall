@@ -28,13 +28,14 @@ func usage(errmsg string) {
 		"%s\n\n"+
 			"usage: %s <command>\n"+
 			"       where <command> is one of\n"+
-			"       install, remove, debug, start, stop, pause or continue.\n",
+			"       install, remove, debug, start or stop.\n",
 		errmsg, os.Args[0])
 	os.Exit(2)
 }
 
+const svcName = "FontForAll"
+
 func main() {
-	const svcName = "myservice"
 
 	isIntSess, err := svc.IsAnInteractiveSession()
 	if err != nil {
@@ -55,17 +56,13 @@ func main() {
 		runService(svcName, true)
 		return
 	case "install":
-		err = installService(svcName, "my service")
+		err = installService(svcName, "Font For All")
 	case "remove":
 		err = removeService(svcName)
 	case "start":
 		err = startService(svcName)
 	case "stop":
 		err = controlService(svcName, svc.Stop, svc.Stopped)
-	case "pause":
-		err = controlService(svcName, svc.Pause, svc.Paused)
-	case "continue":
-		err = controlService(svcName, svc.Continue, svc.Running)
 	default:
 		usage(fmt.Sprintf("invalid command %s", cmd))
 	}
